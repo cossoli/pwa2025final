@@ -1,0 +1,38 @@
+version: "3.1"
+
+services:
+    db:
+        image: postgres:14-alpine
+        environment:
+            POSTGRES_PASSWORD: pwakey
+            POSTGRES_USER: pwauser
+            POSTGRES_DB: pwa
+        volumes:
+            - ./data/pgdata:/var/lib/postgresql/data
+        ports:
+            - '5432:5432'
+
+    app:
+        image: yiisoftware/yii2-php:8.1-apache
+        volumes: 
+            - ./src/composer/cache:/root/.composer/cache
+            - ./src/basic:/app
+        environment: 
+            DB_DATABASE: pwa
+            DB_PASSWORD: pwakey
+            DB_USER: pwauser
+            DB_HOST: db
+            PHP_USER_ID: 1000
+            PRODUCCION: 0
+        ports: 
+            - 8000:80          
+
+    pgadmin:
+        image: dpage/pgadmin4:latest
+        environment:
+            PGADMIN_DEFAULT_EMAIL: tp1@gmail.com
+            PGADMIN_DEFAULT_PASSWORD: pwa2022
+        volumes:
+            - ./data/pgadmin:/var/lib/pgadmin
+        ports:
+            - 8001:80       
