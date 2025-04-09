@@ -14,7 +14,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '9gwtsZlNZ8hrXjjve6EcF3od4sHQ-jE4',
+            'cookieValidationKey' => 'wblCjjgfnRS010-ckRckqWHGM2NwAtN4',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -42,14 +42,14 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+       
     ],
     'params' => $params,
 ];
@@ -68,7 +68,9 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => [ ($_ENV['PRODUCCION'] ? '127.0.0.1' : '*')],
     ];
 }
 
 return $config;
+
